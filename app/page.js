@@ -1,8 +1,7 @@
+import Features from "@/components/layout/Features";
 
-export default function Home() {
-  return (
-<h2>
-    وب پروگ
-</h2>
-  );
-}
+const Home = () => {
+  return <Features />;
+};
+
+export default Home;
