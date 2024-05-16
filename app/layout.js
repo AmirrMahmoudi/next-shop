@@ -1,6 +1,6 @@
-import Header from "@/components/layout/Header";
 import BootstrapClient from "@/components/libraries/Bootstrap";
 import "./globals.css";
+import Header from "@/components/layout/Header";
 
 export default function RootLayout({ children }) {
   return (

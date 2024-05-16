@@ -1,3 +1,6 @@
+import Link from "next/link";
+import Product from "./Product";
+
 const ProductsTab = ({ tabList, tabPanel }) => {
   return (
     <section className="food_section layout_padding-bottom">
@@ -7,43 +10,25 @@ const ProductsTab = ({ tabList, tabPanel }) => {
         </div>
 
         <ul className="filters_menu">
-          <li className="active">برگر</li>
-          <li>پیتزا</li>
-          <li>پیش غذا و سالاد</li>
+          {tabList.map((list, index) => (
+            <li key={index}>{list}</li>
+          ))}
         </ul>
 
         <div className="filters-content">
-          <div className="row grid">
-            <div className="col-sm-6 col-lg-4">
-              <div className="box">
-                <div>
-                  <div className="img-box">
-                    <img className="img-fluid" src="./images/b1.jpg" alt="" />
-                  </div>
-                  <div className="detail-box">
-                    <h5>لورم ایپسوم متن</h5>
-                    <p>
-                      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
-                      و با استفاده از طراحان گرافیک است.
-                    </p>
-                    <div className="options">
-                      <h6>
-                        <del>45,000</del>
-                        34,000
-                        <span>تومان</span>
-                      </h6>
-                      <a href="">
-                        <i className="bi bi-cart-fill text-white fs-5"></i>
-                      </a>
-                    </div>
-                  </div>
+          {tabPanel.map((panel, index) => (
+            <div key={index} className="row grid">
+              {panel.map((product) => (
+                <div key={product.id} className="col-sm-6 col-lg-4">
+                  <Product product={product} />
                 </div>
-              </div>
+              ))}
             </div>
-          </div>
+          ))}
         </div>
+
         <div className="btn-box">
-          <a href=""> مشاهده بیشتر </a>
+          <Link href="/menu">مشاهده بیشتر</Link>
         </div>
       </div>
     </section>

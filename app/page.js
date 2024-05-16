@@ -1,4 +1,4 @@
-import Features from "@/components/layout/Features";
+import Features from "@/components/Features";
 import ProductsTab from "@/components/products/productsTab";
 import { getFetch } from "@/utils/fetch";
 
