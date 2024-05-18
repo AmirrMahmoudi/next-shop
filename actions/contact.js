@@ -1,19 +1,31 @@
 "use server";
 
+import { postFetch } from "@/utils/fetch";
+import { handleError } from "@/utils/helper";
+
 async function create(state, formData) {
   const name = formData.get("name");
-  console.log(name);
   const email = formData.get("email");
-  console.log(email);
   const subject = formData.get("subject");
-  console.log(subject);
   const text = formData.get("text");
-  console.log(text);
 
-  if (name === "" || email === "" || subject === "" || text === "") {
+    if (name === "" || email === "" || subject === "" || text === "") {
+      return {
+        status: "error",
+        message: "تمام موارد فرم تماس با ما الزمامی است.",
+      };
+    }
+
+  const data = await postFetch("/contact-us", { name, email, subject, text });
+  if (data.status === "success") {
     return {
-      status: "error",
-      message: "تمام موارد فرم تماس با ما الزمامی است.",
+      status: data.status,
+      message: "پیام شما با موفقیت ثبت شد",
+    };
+  } else {
+    return {
+      status: data.status,
+      message: handleError(data.message),
     };
   }
 }

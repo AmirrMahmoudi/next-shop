@@ -10,9 +10,7 @@ const FormContact = () => {
   const [state, formAction] = useFormState(create, {});
 
   useEffect(() => {
-    if (state?.status === "error") {
-      toast.error(state.message);
-    }
+    toast(state?.message, { type: `${state?.status}` });
   }, [state]);
 
   return (

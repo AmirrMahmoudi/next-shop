@@ -6,4 +6,22 @@ const numberFormat = (number) => {
   return new Intl.NumberFormat().format(number);
 };
 
-export { getBlurDataURL, numberFormat };
+const handleError = (message) => {
+  //   const message = {
+  //     name: ["فیلد نام الزامی است"],
+  //     email: ["فیلد ایمیل الزامی است"],
+  //   };
+
+  if (typeof message === "object") {
+    const errors = [];
+    Object.keys(message).map((key) => {
+      message[key].map((e) => {
+        errors.push(e);
+      });
+    });
+    return errors.join("\n");
+  }
+  return message;
+};
+
+export { getBlurDataURL, numberFormat, handleError };
