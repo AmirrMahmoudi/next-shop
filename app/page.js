@@ -1,10 +1,10 @@
+import About from "@/components/About";
 import Features from "@/components/Features";
 import ProductsTab from "@/components/products/productsTab";
 import { getFetch } from "@/utils/fetch";
 
 const Home = async () => {
   const productsTab = await getFetch("/products/products-tabs");
-  //   console.log(productsTab);
   return (
     <>
       <Features />
@@ -12,6 +12,7 @@ const Home = async () => {
         tabList={productsTab.tabList}
         tabPanel={productsTab.tabPanel}
       />
+      <About />
     </>
   );
 };
