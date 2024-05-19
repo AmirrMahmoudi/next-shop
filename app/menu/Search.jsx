@@ -10,7 +10,8 @@ const Search = () => {
   const searchParams = useSearchParams();
 
   const handleSearch = (remove) => {
-    const params = new URLSearchParams();
+    const params = new URLSearchParams(searchParams);
+
     if (remove) {
       params.delete("search");
       params.delete("page");

@@ -1,11 +1,37 @@
+"use client";
+
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
 const CategoriesList = ({ categories }) => {
+  const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const handleClick = (id) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("category", id);
+    params.delete("page");
+
+    router.replace(`${pathname}?${params.toString()}`);
+  };
+
   return (
     <div className="filter-list">
       <div className="form-label">دسته بندی</div>
+
       <ul>
-        {categories.map((categorie) => (
-          <li key={categorie.id} className="my-2 cursor-pointer">
-            {categorie.name}
+        {categories.map((category) => (
+          <li
+            key={category.id}
+            onClick={() => handleClick(category.id)}
+            className={
+              searchParams.has("category") &&
+              searchParams.get("category") == category.id
+                ? "my-2 filter-list-active"
+                : "my-2 cursor-pointer"
+            }
+          >
+            {category.name}
           </li>
         ))}
       </ul>
