@@ -7,11 +7,6 @@ const numberFormat = (number) => {
 };
 
 const handleError = (message) => {
-  //   const message = {
-  //     name: ["فیلد نام الزامی است"],
-  //     email: ["فیلد ایمیل الزامی است"],
-  //   };
-
   if (typeof message === "object") {
     const errors = [];
     Object.keys(message).map((key) => {
@@ -24,4 +19,8 @@ const handleError = (message) => {
   return message;
 };
 
-export { getBlurDataURL, numberFormat, handleError };
+const salePercent = (price, salePrice) => {
+  return Math.round(((price - salePrice) / price) * 100);
+};
+
+export { getBlurDataURL, numberFormat, handleError, salePercent };
