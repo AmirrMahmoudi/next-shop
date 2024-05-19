@@ -4,6 +4,7 @@ import ProductsList from "./ProductsList";
 import { Suspense } from "react";
 import Loading from "./Loading";
 import Search from "./Search";
+import Sort from "./Sort";
 
 export default async function MenuPage({ searchParams }) {
   const categories = await getFetch("/categories");
@@ -19,49 +20,8 @@ export default async function MenuPage({ searchParams }) {
             <CategoriesList categories={categories} />
 
             <hr />
-            <div>
-              <label className="form-label">مرتب سازی</label>
-              <div className="form-check my-2">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="flexRadioDefault"
-                />
-                <label className="form-check-label cursor-pointer">
-                  بیشترین قیمت
-                </label>
-              </div>
-              <div className="form-check my-2">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="flexRadioDefault"
-                />
-                <label className="form-check-label cursor-pointer">
-                  کمترین قیمت
-                </label>
-              </div>
-              <div className="form-check my-2">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="flexRadioDefault"
-                />
-                <label className="form-check-label cursor-pointer">
-                  پرفروش ترین
-                </label>
-              </div>
-              <div className="form-check my-2">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="flexRadioDefault"
-                />
-                <label className="form-check-label cursor-pointer">
-                  با تخفیف
-                </label>
-              </div>
-            </div>
+
+            <Sort />
           </div>
           <div className="col-sm-12 col-lg-9">
             <Suspense key={params.toString()} fallback={<Loading />}>
