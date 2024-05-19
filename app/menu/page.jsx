@@ -3,6 +3,7 @@ import { getFetch } from "@/utils/fetch";
 import ProductsList from "./ProductsList";
 import { Suspense } from "react";
 import Loading from "./Loading";
+import Search from "./Search";
 
 export default async function MenuPage({ searchParams }) {
   const categories = await getFetch("/categories");
@@ -13,19 +14,7 @@ export default async function MenuPage({ searchParams }) {
       <div className="container">
         <div className="row">
           <div className="col-sm-12 col-lg-3">
-            <div>
-              <label className="form-label">جستجو</label>
-              <div className="input-group mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="نام محصول ..."
-                />
-                <a href="#" className="input-group-text">
-                  <i className="bi bi-search"></i>
-                </a>
-              </div>
-            </div>
+            <Search />
             <hr />
             <CategoriesList categories={categories} />
 
