@@ -1,9 +1,11 @@
+import Product from "@/components/products/Product";
 import { getFetch } from "@/utils/fetch";
 import { getBlurDataURL, numberFormat, salePercent } from "@/utils/helper";
 import Image from "next/image";
 
-const ProductPage = async ({ params }) => {
+export default async function ProductPage({ params }) {
   const product = await getFetch(`/products/${decodeURI(params.slug)}`);
+  const randomProduct = await getFetch("/random-products?count=4");
 
   return (
     <>
@@ -13,7 +15,7 @@ const ProductPage = async ({ params }) => {
             <div className="col-md-10 offset-md-1">
               <div className="row gy-5">
                 <div className="col-sm-12 col-lg-6">
-                  <h3 className="fw-bold mb-4"> {product.names}</h3>
+                  <h3 className="fw-bold mb-4">{product.names}</h3>
                   <h5 className="mb-3">
                     {product.is_sale ? (
                       <>
@@ -26,9 +28,10 @@ const ProductPage = async ({ params }) => {
                       <span>{numberFormat(product.price)}</span>
                     )}
                     <span>تومان</span>
+
                     {product.is_sale && (
                       <div className="text-danger fs-6">
-                        {salePercent(product.price, product.salePercent)}% تخفیف
+                        {salePercent(product.price, product.sale_price)}% تخفیف
                       </div>
                     )}
                   </h5>
@@ -53,9 +56,10 @@ const ProductPage = async ({ params }) => {
                       <button
                         type="button"
                         data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide-to=""
+                        data-bs-slide-to="0"
                         className="active"
                       ></button>
+
                       {product.images.map((img, index) => (
                         <button
                           key={index}
@@ -70,29 +74,29 @@ const ProductPage = async ({ params }) => {
                       <div className="carousel-item active">
                         <Image
                           src={product.primary_image}
-                          alt={"product-primary-image"}
                           placeholder="blur"
                           blurDataURL={getBlurDataURL()}
                           width={464}
                           height={309}
                           className="d-block w-100"
+                          alt="product-primary-image"
                         />
                       </div>
                       {product.images.map((img) => (
-                        <div className="carousel-item">
+                        <div key={img.id} className="carousel-item">
                           <Image
-                            key={img.id}
                             src={img.image}
-                            alt={"product-image"}
                             placeholder="blur"
                             blurDataURL={getBlurDataURL()}
                             width={464}
                             height={309}
                             className="d-block w-100"
+                            alt="product-image"
                           />
                         </div>
                       ))}
                     </div>
+
                     <button
                       className="carousel-control-prev"
                       type="button"
@@ -120,40 +124,18 @@ const ProductPage = async ({ params }) => {
       </section>
 
       <hr />
+
       <section className="food_section my-5">
         <div className="container">
           <div className="row gx-3">
-            <div className="col-sm-6 col-lg-3">
-              <div className="box">
-                <div>
-                  <div className="img-box">
-                    <img className="img-fluid" src="./images/b1.jpg" alt="" />
-                  </div>
-                  <div className="detail-box">
-                    <h5>لورم ایپسوم متن</h5>
-                    <p>
-                      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
-                      و با استفاده از طراحان گرافیک است.
-                    </p>
-                    <div className="options">
-                      <h6>
-                        <del>45,000</del>
-                        34,000
-                        <span>تومان</span>
-                      </h6>
-                      <a href="">
-                        <i className="bi bi-cart-fill text-white fs-5"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+            {randomProduct.map((product, index) => (
+              <div key={index} className="col-sm-6 col-lg-3">
+                <Product product={product} />
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
     </>
   );
-};
-
-export default ProductPage;
+}
