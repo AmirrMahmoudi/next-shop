@@ -4,7 +4,7 @@ import LoginForm from "@/components/auth/LoginForm";
 import { useState } from "react";
 
 const LoginPage = () => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(2);
   return (
     <section className="auth_section book_section">
       <div className="container">

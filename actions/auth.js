@@ -31,7 +31,7 @@ const login = async (stateLogin, formData) => {
       value: data.data.login_token,
       httpOnly: true,
       path: "/",
-      maxAge: 60 * 6 * 24 * 7, // 1 Week
+      maxAge: 60 * 60 * 24 * 7, // 1 Week
     });
     return {
       status: data.status,
@@ -64,19 +64,33 @@ const checkOtp = async (stateOtp, formData) => {
     };
   }
 
-  const data = await postFetch("/auth/login", { cellphone });
+  const loginToken = cookies().get("login_token");
+
+  if (!loginToken) {
+    return {
+      status: "error",
+      message: "توکن ورودی شما معتبر نیست. یکبار دگر تلاش کنید",
+    };
+  }
+
+  const data = await postFetch("/auth/check-otp", {
+    otp,
+    login_token: loginToken.value,
+  });
 
   if (data.status === "success") {
+    cookies().delete("login_token");
     cookies().set({
-      name: "login_token",
-      value: data.data.login_token,
+      name: "token",
+      value: data.data.token,
       httpOnly: true,
       path: "/",
-      maxAge: 60 * 6 * 24 * 7, // 1 Week
+      maxAge: 60 * 60 * 24 * 7, // 1 Week
     });
     return {
       status: data.status,
-      message: "کد ورود با موفقیت برای شما ارسال شد",
+      message: "شما با موفقیت وارد شدید.",
+      user:data.data.user
     };
   } else {
     return {

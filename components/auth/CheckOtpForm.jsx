@@ -28,4 +28,4 @@ const CheckOtpForm = () => {
   );
 };
 
-export default CheckOtpForm;
+export default CheckOtpForm; 
