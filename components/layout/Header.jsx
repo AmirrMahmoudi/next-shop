@@ -80,10 +80,9 @@ function Header() {
                       3
                     </span>
                   </a>
-                  <a href="login.html" className="btn-auth">
-                    {" "}
-                    ورود{" "}
-                  </a>
+                  <Link href="/auth/login" className="btn-auth" >
+                    ورود
+                  </Link>
                 </div>
               </div>
             </nav>
