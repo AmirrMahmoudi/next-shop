@@ -4,7 +4,7 @@ import { postFetch } from "@/utils/fetch";
 import { handleError } from "@/utils/helper";
 import { cookies } from "next/headers";
 
-async function login(stateLogin, formData) {
+const login = async (stateLogin, formData) => {
   const cellphone = formData.get("cellphone");
 
   if (cellphone === "") {
@@ -43,5 +43,47 @@ async function login(stateLogin, formData) {
       message: handleError(data.message),
     };
   }
-}
-export { login };
+};
+
+const checkOtp = async (stateOtp, formData) => {
+  const otp = formData.get("otp");
+
+  if (otp === "") {
+    return {
+      status: "error",
+      message: "کد ورود الزامی است.",
+    };
+  }
+
+  const pattern = /^[0-9]{6}$/;
+
+  if (!pattern.test(otp)) {
+    return {
+      status: "error",
+      message: "کد ورود معتبر نیست.",
+    };
+  }
+
+  const data = await postFetch("/auth/login", { cellphone });
+
+  if (data.status === "success") {
+    cookies().set({
+      name: "login_token",
+      value: data.data.login_token,
+      httpOnly: true,
+      path: "/",
+      maxAge: 60 * 6 * 24 * 7, // 1 Week
+    });
+    return {
+      status: data.status,
+      message: "کد ورود با موفقیت برای شما ارسال شد",
+    };
+  } else {
+    return {
+      status: data.status,
+      message: handleError(data.message),
+    };
+  }
+};
+
+export { login, checkOtp };
