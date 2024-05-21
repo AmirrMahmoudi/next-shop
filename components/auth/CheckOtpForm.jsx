@@ -1,17 +1,22 @@
 "use client";
 
 import { useFormState } from "react-dom";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { toast } from "react-toastify";
 
 import SubmitButton from "@/components/SubmitButton";
 import { checkOtp } from "@/actions/auth";
+import AuthContext from "@/context/AuthContext";
 
 const CheckOtpForm = () => {
   const [stateOtp, formActionOtp] = useFormState(checkOtp, {});
+  const { loginContext } = useContext(AuthContext);
 
   useEffect(() => {
     toast(stateOtp?.message, { type: `${stateOtp?.status}` });
+    if (stateOtp?.status === "success") {
+      loginContext(stateOtp.user);
+    }
   }, [stateOtp]);
   return (
     <div className="card-body">
@@ -28,4 +33,4 @@ const CheckOtpForm = () => {
   );
 };
 
-export default CheckOtpForm; 
+export default CheckOtpForm;

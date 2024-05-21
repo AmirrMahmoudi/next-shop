@@ -69,7 +69,7 @@ const checkOtp = async (stateOtp, formData) => {
   if (!loginToken) {
     return {
       status: "error",
-      message: "توکن ورودی شما معتبر نیست. یکبار دگر تلاش کنید",
+      message: "توکن ورودی شما معتبر نیست. یکبار دیگر تلاش کنید",
     };
   }
 
