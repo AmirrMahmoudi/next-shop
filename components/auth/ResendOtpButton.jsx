@@ -13,13 +13,13 @@ const ResendOtpButton = () => {
   useEffect(() => {
     toast(stateResendOtp?.message, { type: `${stateResendOtp?.status}` });
     if (stateResendOtp?.status === "success") {
-      setMinutes(0);
-      setSeconds(15);
+      setMinutes(2);
+      setSeconds(0);
     }
   }, [stateResendOtp]);
 
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(15);
+  const [minutes, setMinutes] = useState(2);
+  const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {

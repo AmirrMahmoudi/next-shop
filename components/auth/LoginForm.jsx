@@ -17,21 +17,23 @@ const LoginForm = ({ setStep, setCellphone }) => {
     }
   }, [stateLogin]);
 
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(15);
 
-const handleCellphoneChange=(event)=>{
-    setCellphone(event.target.value)
-}
+  const handleCellphoneChange = (event) => {
+    setCellphone(event.target.value);
+  };
 
   return (
     <div className="card-body">
       <div className="form_container">
         <form action={formActionLogin}>
-            
           <div className="mb-3">
             <label className="form-label">شماره موبایل</label>
-            <input name="cellphone" type="text" className="form-control"  onChange={handleCellphoneChange}/>
+            <input
+              name="cellphone"
+              type="text"
+              className="form-control"
+              onChange={handleCellphoneChange}
+            />
           </div>
           <SubmitButton title="ورود" className="btn btn-primary btn-auth" />
         </form>
