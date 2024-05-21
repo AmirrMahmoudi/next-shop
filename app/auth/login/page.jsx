@@ -11,8 +11,9 @@ const LoginPage = () => {
         <div className="row mt-5">
           <div className="col-md-4 offset-md-4">
             <div className="card">
-              {step === 1 && <LoginForm setStep={setStep} />}
-              {step === 2 && <CheckOtpForm />}
+              {step == 1 && <LoginForm setStep={setStep} />}
+
+              {step == 2 && <CheckOtpForm />}
             </div>
           </div>
         </div>

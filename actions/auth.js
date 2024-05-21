@@ -100,6 +100,40 @@ const checkOtp = async (stateOtp, formData) => {
   }
 };
 
+const resendOtp = async (stateResendOtp, formData) => {
+  const loginToken = cookies().get("login_token");
+
+  if (!loginToken) {
+    return {
+      status: "error",
+      message: "توکن ورودی شما معتبر نیست. یکبار دبگر تلاش کنید",
+    };
+  }
+
+  const data = await postFetch("/auth/resend-otp", {
+    login_token: loginToken.value,
+  });
+
+  if (data.status === "success") {
+    cookies().set({
+      name: "login_token",
+      value: data.data.login_token,
+      httpOnly: true,
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7, // 1 Week
+    });
+    return {
+      status: data.status,
+      message: "کد ورود دوباره برای شما ارسال شد.",
+    };
+  } else {
+    return {
+      status: data.status,
+      message: handleError(data.message),
+    };
+  }
+};
+
 const me = async () => {
   const token = cookies().get("token");
 
@@ -128,4 +162,4 @@ const me = async () => {
   }
 };
 
-export { login, checkOtp, me };
+export { login, checkOtp, me, resendOtp };

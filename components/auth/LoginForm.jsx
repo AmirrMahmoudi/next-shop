@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormState } from "react-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import SubmitButton from "@/components/SubmitButton";
@@ -16,10 +16,15 @@ const LoginForm = ({ setStep }) => {
       setStep(2);
     }
   }, [stateLogin]);
+
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(15);
+
   return (
     <div className="card-body">
       <div className="form_container">
         <form action={formActionLogin}>
+            
           <div className="mb-3">
             <label className="form-label">شماره موبایل</label>
             <input name="cellphone" type="text" className="form-control" />
