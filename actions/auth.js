@@ -2,7 +2,7 @@
 
 import { postFetch } from "@/utils/fetch";
 import { handleError } from "@/utils/helper";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 
 const login = async (stateLogin, formData) => {
   const cellphone = formData.get("cellphone");
@@ -90,7 +90,7 @@ const checkOtp = async (stateOtp, formData) => {
     return {
       status: data.status,
       message: "شما با موفقیت وارد شدید.",
-      user:data.data.user
+      user: data.data.user,
     };
   } else {
     return {
@@ -100,4 +100,32 @@ const checkOtp = async (stateOtp, formData) => {
   }
 };
 
-export { login, checkOtp };
+const me = async () => {
+  const token = cookies().get("token");
+
+  if (!token) {
+    return {
+      error: "Not Authorized",
+    };
+  }
+
+  const data = await postFetch(
+    "/auth/me",
+    {},
+    {
+      Authorization: `Bearer ${token.value}`,
+    }
+  );
+
+  if (data.status === "success") {
+    return {
+      user: data.data,
+    };
+  } else {
+    return {
+      error: "User Forbidden",
+    };
+  }
+};
+
+export { login, checkOtp, me };
