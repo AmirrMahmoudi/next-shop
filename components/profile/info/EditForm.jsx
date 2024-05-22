@@ -13,7 +13,7 @@ const EditForm = ({ user }) => {
 
   useEffect(() => {
     toast(state?.message, { type: `${state?.status}` });
-  }, [state]);
+  }, [state]); 
 
   return (
     <form action={formAction}>
