@@ -95,6 +95,7 @@ const EditForm = ({ address, provinces, cities }) => {
               ></textarea>
             </div>
           </div>
+          <input type="hidden" name="address_id" value={address.id} />
           <div>
             <SubmitButton title={"ویرایش"} style={"btn btn-primary mt-4"} />
           </div>
