@@ -1,5 +1,6 @@
 // "use server";
 import CreateForm from "@/components/profile/addresses/CreateForm";
+import EditForm from "@/components/profile/addresses/EditForm";
 
 import { getFetch } from "@/utils/fetch";
 import { cookies } from "next/headers";
@@ -62,6 +63,14 @@ const page = async () => {
           <button className="btn btn-dark">حذف</button>
         </div>
       </div> */}
+      {addresses.map((address) => (
+        <EditForm
+          key={address.id}
+          address={address}
+          provinces={provinces}
+          cities={cities}
+        />
+      ))}
     </>
   );
 };
