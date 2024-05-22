@@ -2,6 +2,7 @@
 
 import { postFetch } from "@/utils/fetch";
 import { handleError } from "@/utils/helper";
+import { revalidatePath } from "next/cache";
 import { cookies, headers } from "next/headers";
 
 const editInfo = async (state, formData) => {
@@ -94,6 +95,7 @@ const createAddress = async (state, formData) => {
   );
 
   if (data.status === "success") {
+    revalidatePath("/profile/addresses");
     return {
       status: data.status,
       message: "ثبت آدرس با موفقیت انجام شد.",
@@ -180,4 +182,38 @@ const editAddress = async (state, formData) => {
     };
   }
 };
-export { editInfo, createAddress, editAddress };
+
+const deleteAddress = async (state, formData) => {
+  const address_id = formData.get("address_id");
+
+  if (address_id === null || address_id === "") {
+    return {
+      status: "error",
+      message: "شناسه آدرس الزامی است",
+    };
+  }
+
+  const token = cookies().get("token");
+  const data = await postFetch(
+    "/profile/addresses/delete",
+    {
+      address_id,
+    },
+    { Authorization: `Bearer ${token.value}` }
+  );
+
+  if (data.status === "success") {
+    revalidatePath("/profile/addresses");
+    return {
+      status: data.status,
+      message: "حذف آدرس با موفقیت انجام شد.",
+    };
+  } else {
+    return {
+      status: data.status,
+      message: handleError(data.message),
+    };
+  }
+};
+
+export { editInfo, createAddress, editAddress, deleteAddress };

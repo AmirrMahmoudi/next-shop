@@ -7,6 +7,7 @@ import { useFormState } from "react-dom";
 
 import { editAddress } from "@/actions/profile";
 import SubmitButton from "@/components/SubmitButton";
+import DeleteForm from "./DeleteForm";
 
 const EditForm = ({ address, provinces, cities }) => {
   const [citiesFilter, setCitiesFilter] = useState(cities);
@@ -100,9 +101,7 @@ const EditForm = ({ address, provinces, cities }) => {
             <SubmitButton title={"ویرایش"} style={"btn btn-primary mt-4"} />
           </div>
         </form>
-        <div className="form-delete-address">
-          <SubmitButton title={"حذف"} style={"btn btn-dark"} />
-        </div>
+        <DeleteForm addresId={address.id} />
       </div>
     </>
   );
