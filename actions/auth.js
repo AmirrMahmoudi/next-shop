@@ -162,4 +162,27 @@ const me = async () => {
   }
 };
 
-export { login, checkOtp, me, resendOtp };
+const logout = async () => {
+  const token = cookies().get("token");
+
+  const data = await postFetch(
+    "/auth/me",
+    {},
+    {
+      Authorization: `Bearer ${token.value}`,
+    }
+  );
+
+  if (data.status === "success") {
+    cookies().delete("token");
+    return {
+      success: "You are logged out",
+    };
+  } else {
+    return {
+      error: "User Forbidden",
+    };
+  }
+};
+
+export { login, checkOtp, me, resendOtp, logout };

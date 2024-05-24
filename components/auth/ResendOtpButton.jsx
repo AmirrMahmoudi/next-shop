@@ -34,7 +34,7 @@ const ResendOtpButton = () => {
           setMinutes(minutes - 1);
         }
       }
-    }, 1000);
+    }, 100);
 
     return () => {
       clearInterval(interval);
