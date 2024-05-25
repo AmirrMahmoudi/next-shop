@@ -1,19 +1,25 @@
 "use client";
 
+import Coupon from "@/components/cart/Coupon";
 import {
   clearCart,
   decrement,
   increment,
   removeFromCart,
+  totalAmounCart,
 } from "@/redux/slice/cartSlice";
 import { getBlurDataURL, numberFormat, salePercent } from "@/utils/helper";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const CartPage = () => {
+  const [coupon, setCoupon] = useState({ code: "", percent: 0 });
   const state = useSelector((state) => state.shoppingCart);
+  const totalAmount = useSelector(totalAmounCart);
   const dispatch = useDispatch();
+
   return (
     <>
       {state.cart.length != 0 ? (
@@ -129,18 +135,8 @@ const CartPage = () => {
                 </div>
 
                 <div className="row mt-4">
-                  <div className="col-12 col-md-6">
-                    <div className="input-group mb-3">
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="کد تخفیف"
-                      />
-                      <button className="input-group-text" id="basic-addon2">
-                        اعمال کد تخفیف
-                      </button>
-                    </div>
-                  </div>
+                  {/* {JSON.stringify(coupon)} */}
+                  <Coupon setCoupon={setCoupon} />
                   <div className="col-12 col-md-6 d-flex justify-content-end align-items-baseline">
                     <div>انتخاب آدرس</div>
                     <select
@@ -164,18 +160,31 @@ const CartPage = () => {
                         <ul className="list-group mt-4">
                           <li className="list-group-item d-flex justify-content-between">
                             <div>مجموع قیمت :</div>
-                            <div>535,000 تومان</div>
+                            <div>{numberFormat(totalAmount)} تومان</div>
                           </li>
                           <li className="list-group-item d-flex justify-content-between">
                             <div>
                               تخفیف :
-                              <span className="text-danger ms-1">10%</span>
+                              <span className="text-danger ms-1">
+                                {coupon.percent}%
+                              </span>
                             </div>
-                            <div className="text-danger">53,500 تومان</div>
+                            <div className="text-danger">
+                              {numberFormat(
+                                (totalAmount * coupon.percent) / 100
+                              )}{" "}
+                              تومان
+                            </div>
                           </li>
                           <li className="list-group-item d-flex justify-content-between">
                             <div>قیمت پرداختی :</div>
-                            <div>481,500 تومان</div>
+                            <div>
+                              {numberFormat(
+                                totalAmount -
+                                  (totalAmount * coupon.percent) / 100
+                              )}{" "}
+                              تومان
+                            </div>
                           </li>
                         </ul>
                         <button className="user_option btn-auth mt-4">
@@ -195,7 +204,7 @@ const CartPage = () => {
             <div>
               <i className="bi bi-basket-fill" style={{ fontSize: "80px" }}></i>
             </div>
-            <h4 className="text-bold">سبد خرید شما خالیاست</h4>
+            <h4 className="text-bold">سبد خرید شما خالی است</h4>
             <Link href={"/menu"} className="btn btn-outline-dark mt-3">
               مشاهده محصولات
             </Link>

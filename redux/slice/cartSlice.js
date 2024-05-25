@@ -37,3 +37,12 @@ export const cartSlice = createSlice({
 export const { addToCart, removeFromCart, increment, decrement, clearCart } =
   cartSlice.actions;
 export const cartReducer = cartSlice.reducer;
+
+export const totalAmounCart = ({ shoppingCart }) => {
+  return shoppingCart.cart.reduce((total, product) => {
+    console.log(product);
+    return product.is_sale
+      ? total + product.sale_price * product.qty
+      : total + product.price * product.qty;
+  }, 0);
+};

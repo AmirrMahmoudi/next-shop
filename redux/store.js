@@ -13,13 +13,10 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, cartReducer);
 
 export const store = configureStore({
-
-
-
-middleware:(getDefaultMiddleware)=>getDefaultMiddleware({
-    serializableCheck:false
-}),
-
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 
   reducer: {
     shoppingCart: persistedReducer,
