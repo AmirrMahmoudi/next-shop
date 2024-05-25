@@ -1,14 +1,18 @@
 "use client";
-import { addToCart } from "@/redux/slice/cartSlice";
+import { addToCart, removeFromCart } from "@/redux/slice/cartSlice";
 import { getBlurDataURL, numberFormat } from "@/utils/helper";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 const Product = ({ product }) => {
   const dispatch = useDispatch();
+
   function handleAddToCart(product) {
+    dispatch(removeFromCart(product.id));
     dispatch(addToCart({ product, qty: 1 }));
+    toast.success("محصول به سبد خرید اضافه شد");
   }
 
   return (
