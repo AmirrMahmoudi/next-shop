@@ -5,10 +5,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useContext } from "react";
+import { useSelector } from "react-redux";
 
 function Header() {
   const pathname = usePathname();
   const { user } = useContext(AuthContext);
+  const state = useSelector((state) => state.shoppingCart);
+
   return (
     <div className={pathname === "/" ? "" : "sub_page"}>
       <div className="hero_area">
@@ -80,7 +83,7 @@ function Header() {
                   <a className="cart_link position-relative" href="cart.html">
                     <i className="bi bi-cart-fill text-white fs-5"></i>
                     <span className="position-absolute top-0 translate-middle badge rounded-pill">
-                      3
+                      {state.cart.length}
                     </span>
                   </a>
                   {user ? (
