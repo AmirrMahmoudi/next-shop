@@ -22,7 +22,7 @@ function Header() {
           <div className="container">
             <nav className="navbar navbar-expand-lg custom_nav-container">
               <Link className="navbar-brand" href="/" alt="home">
-                <span> webprog.io </span>
+                <span> next-shop </span>
               </Link>
 
               <button

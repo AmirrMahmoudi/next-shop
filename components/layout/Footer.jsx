@@ -32,7 +32,7 @@ const Footer = () => {
             <div className="footer_detail">
               <a href="" className="footer-logo">
                 {" "}
-                webprog.io{" "}
+                next-shop{" "}
               </a>
               <p>
                 لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
