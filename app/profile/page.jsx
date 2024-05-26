@@ -9,7 +9,6 @@ const ProfilePage = async () => {
     Authorization: `Bearer ${token.value}`,
   });
 
-  //   console.log(user);
   return (
     <div className="vh-70">
       <EditForm user={user} />

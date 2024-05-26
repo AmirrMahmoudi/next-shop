@@ -73,4 +73,25 @@ const payment = async (state, formData) => {
   }
 };
 
-export { checkCoupon, getAddresses, payment };
+const paymentVerify = async (trackId, status) => {
+
+  const token = cookies().get("token");
+  const data = await postFetch(
+    "/payment/verify",
+    { token: trackId, status },
+    { Authorization: `Bearer ${token.value}` }
+  );
+
+  if (data.status === "success") {
+    return {
+      status: data.status,
+      payment: data.data,
+    };
+  } else {
+    return {
+      status: data.status,
+      message: handleError(data.message),
+    };
+  }
+};
+export { checkCoupon, getAddresses, payment, paymentVerify };

@@ -141,7 +141,7 @@ const CartPage = () => {
                   {/* {JSON.stringify(coupon)} */}
                   <Coupon setCoupon={setCoupon} />
                   <div className="col-12 col-md-6 d-flex justify-content-end align-items-baseline">
-                    {addressId}
+                    {/* {addressId} */}
                     <Address setAddressId={setAddressId} />
                   </div>
                 </div>
