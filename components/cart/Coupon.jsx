@@ -18,7 +18,7 @@ const Coupon = ({ setCoupon }) => {
         code: state.code,
         percent: state.percent,
       });
-    }
+    } 
   }, [state]);
   return (
     <div className="col-12 col-md-6">
