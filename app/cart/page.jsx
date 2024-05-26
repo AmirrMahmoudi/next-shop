@@ -2,6 +2,7 @@
 
 import Address from "@/components/cart/Address";
 import Coupon from "@/components/cart/Coupon";
+import Payment from "@/components/cart/Payment";
 import {
   clearCart,
   decrement,
@@ -142,7 +143,6 @@ const CartPage = () => {
                   <div className="col-12 col-md-6 d-flex justify-content-end align-items-baseline">
                     {addressId}
                     <Address setAddressId={setAddressId} />
-
                   </div>
                 </div>
                 <div className="row justify-content-center mt-5">
@@ -180,9 +180,12 @@ const CartPage = () => {
                             </div>
                           </li>
                         </ul>
-                        <button className="user_option btn-auth mt-4">
-                          پرداخت
-                        </button>
+                        {/* پرداخت */}
+                        <Payment
+                          cart={state.cart}
+                          coupon={coupon}
+                          addressId={addressId}
+                        />
                       </div>
                     </div>
                   </div>
